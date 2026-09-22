@@ -1,0 +1,66 @@
+{
+  "seed": 17,
+  "manifest": "prepared_data.json",
+  "canonical_meshes": [
+    "local_meshes/obj_0_local.ply",
+    "local_meshes/obj_1_local.ply",
+    "local_meshes/obj_2_local.ply",
+    "local_meshes/obj_4_local.ply"
+  ],
+  "scenes": [
+    {
+      "scene_id": "demo/scene_000",
+      "object_ids_on_disk": [
+        2,
+        0
+      ],
+      "cache": "scene_000.npz"
+    },
+    {
+      "scene_id": "demo/scene_001",
+      "object_ids_on_disk": [
+        4,
+        1,
+        0
+      ],
+      "cache": "scene_001.npz"
+    }
+  ],
+  "validated": [
+    {
+      "scene_id": "demo/scene_000",
+      "object_ids_loaded": [
+        0,
+        2
+      ],
+      "pose_tokens": [
+        2,
+        4,
+        8
+      ],
+      "shape_tokens": [
+        2,
+        4,
+        8
+      ]
+    },
+    {
+      "scene_id": "demo/scene_001",
+      "object_ids_loaded": [
+        0,
+        1,
+        4
+      ],
+      "pose_tokens": [
+        3,
+        4,
+        8
+      ],
+      "shape_tokens": [
+        3,
+        4,
+        8
+      ]
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "schema_version": 3,
+  "release": {
+    "name": "MessyKitchens code and independent small-data demos",
+    "version": "0.2.0",
+    "prepared_date": "2026-09-07",
+    "repository": "https://github.com/MessyKitchens/MessyKitchens",
+    "status": "code_and_demo_release_not_paper_exact",
+    "source_base_commit": "14e5211",
+    "version_identity": "Git commit of this checkout; emitted by --require-git and the publication receipt"
+  },
+  "licenses": {
+    "repository_code": "Apache-2.0",
+    "dataset": "CC-BY-NC-4.0",
+    "third_party": "See THIRD_PARTY_NOTICES.md"
+  },
+  "entry_points": {
+    "data_processing": "scripts/prepare.sh",
+    "training": "scripts/train.sh",
+    "inference": "scripts/infer.sh",
+    "demo_data_processing": "scripts/demo.sh prepare",
+    "demo_training": "scripts/demo.sh train",
+    "demo_inference": "scripts/demo.sh infer",
+    "metrics": "mod-metrics"
+  },
+  "dataset_snapshot": {
+    "repository": "https://huggingface.co/datasets/MessyKitchens/MessyKitchens",
+    "revision": "edc548246682daa6f4b23460e6317847a4541271",
+    "license": "CC-BY-NC-4.0",
+    "inspected_date": "2026-09-06",
+    "download_size": "22.9 GB",
+    "scenes": 100,
+    "dataset_card_object_models": 130,
+    "object_model_ply_files": 134,
+    "rgb_views": 1503,
+    "per_scene_rgb_count": "varies",
+    "instance_masks": "not_present_in_inspected_public_file_tree",
+    "real_data_processing_ready": false
+  },
+  "portable_demo": {
+    "backend": "direct",
+    "paper_model": false,
+    "external_downloads_required": false,
+    "default_device": "cpu",
+    "status": "independent_cpu_stages_verified",
+    "bundled_inputs": true,
+    "bundled_model": true
+  },
+  "paper_artifacts": {
+    "mod_checkpoint": {
+      "status": "located_internal_not_published",
+      "format": "pytorch_model_pth",
+      "size_bytes": 336133558,
+      "sha256": "aaf6e3fb5256ca7be8dd9f5472a85309b9194d868ea997e05556194f507ddf22",
+      "training_parameters_sha256": "31c667f0483908e9fab6055d5fd7becb354e9673f4157c196eeb02c58bafb29a",
+      "optimizer_step": 2000,
+      "selected_early_snapshot": true,
+      "planned_scheduler_steps": 909000,
+      "train_records": 9090,
+      "effective_batch_size": 2,
+      "sanitized_training_config": "configs/pose_refiner_paper.yaml",
+      "training_objective": {
+        "scale_loss": "raw_mse",
+        "chamfer_backend": "pytorch3d",
+        "chamfer_num_samples": 1024,
+        "loss_weights": {
+          "translation": 100.0,
+          "rotation": 0.1,
+          "scale": 100.0,
+          "cd": 100.0
+        },
+        "canonical_geometry_policy": "strict_object_id_match_no_disk_cache_writes",
+        "in_memory_cache_scenes": 16
+      },
+      "public_url": null,
+      "license": null,
+      "required": [
+        "public_url",
+        "revision",
+        "license"
+      ]
+    },
+    "split_manifests": {
+      "status": "located_internal_with_private_paths_not_published",
+      "checkpoint_train": {
+        "sample_count": 9090,
+        "sha256": "04c69dc82b3b666287b2f17036a3c34d49a899bcb0cc65cf375b34748fbade4a",
+        "source_type": "synthetic_GSO",
+        "public_messykitchens_real_scenes": false,
+        "prepared_records_located": 9090,
+        "raw_rgb_mask_mesh_records_located": 6208,
+        "missing_raw_records": 2882,
+        "missing_raw_subset": "GSO-hard"
+      },
+      "training_time_external_validation": {
+        "sample_count": 10,
+        "sha256": "ea04c2a947e021a95c73d5ad5b94ec7c4fcd1b626c15ee43407ff84129206bf2",
+        "benchmark_test_split": false
+      },
+      "messykitchens_evaluation": {
+        "row_count": 1055,
+        "unique_image_ids": 660,
+        "duplicated_input_rows": 395,
+        "sha256": "e4fb98bd9e06c8af968ba373c49cad523b87a05b91f693bd65688133d622ee68",
+        "duplicate_review_required": true,
+        "paper_weighting_author_confirmation_required": true,
+        "public_rgb_mapping": "660_of_660_unique_inputs_matched",
+        "public_instance_mask_mapping": "unavailable",
+        "public_scene_mesh_equivalent_to_internal_rectified_gt": false
+      },
+      "required": [
+        "portable_relative_paths",
+        "stable_sample_ids",
+        "published_urls"
+      ]
+    },
+    "real_scene_demo": {
+      "status": "candidate_located_internal_not_published",
+      "candidate_id": "scene_20__s20e4__IMG_9760",
+      "objects": 3,
+      "components": [
+        "rgb",
+        "instance_mask",
+        "ground_truth_mesh"
+      ],
+      "rgb": {
+        "width": 4032,
+        "height": 3024,
+        "size_bytes": 6884993,
+        "sha256": "a3806da92e3105076f8956adf7117a8c9e22619830e7b71b9643a08135596eb6"
+      },
+      "proposed_mask_encoding": {
+        "format": "8-bit grayscale PNG",
+        "labels": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "lossless_roundtrip_verified": true,
+        "estimated_size_bytes": 23273
+      },
+      "ground_truth_mesh": {
+        "size_bytes": 15738336,
+        "sha256": "21687a7439a2ff868fbbbfa273b57bc8085144508b0fbaf3ae78a29fc3274f93"
+      },
+      "label_to_gt_node_mapping": "requires_author_confirmation",
+      "license_candidate": "CC-BY-NC-4.0",
+      "redistribution_confirmation_required": true
+    },
+    "clean_data_release_staging": {
+      "status": "no_final_release_staging_directory_found",
+      "after_eccv_cleaning_candidate_is_paper_exact": false
+    },
+    "sam3d_camera_ready_integration": {
+      "status": "unpublished_local_modifications",
+      "upstream": "https://github.com/facebookresearch/sam-3d-objects",
+      "local_baseline_commit": "afdf6a31522d038c44c68a0bb57aa68827380797",
+      "license": "SAM License"
+    },
+    "full_evaluator": {
+      "status": "not_clean_clone_runnable_unpublished_project_local_sources",
+      "partcrafter_inspected_commit": "3d773bf02fad51c7ab31a5615573fec93b287b30",
+      "gaps_exact_paper_commit": null,
+      "missing_sources": [
+        "validate_predicted_poses_quick.py",
+        "partcrafter_ran/src/utils/eval_utils.py",
+        "sam3/examples/sam3d_ran_utils.py"
+      ]
+    },
+    "physical_contact_metrics": {
+      "status": "withheld_pending_contributor_provenance_and_license_confirmation",
+      "included_in_release": false
+    }
+  },
+  "verification": {
+    "receipt": "docs/release/verification.json",
+    "cpu_tests": "128_passed_1_optional_pytorch3d_test_skipped_including_native_gaps",
+    "real_sam3d_gpu": "three_stages_passed_clean_upstream_A100",
+    "paper_checkpoint": "not_publicly_available",
+    "full_paper_metrics": "not_reproduced",
+    "clean_source_and_distributions": "passed; see docs/release/verification.json",
+    "layout_revision": "passed; see docs/release/verification.json layout_revision",
+    "training_gt_revision": "local_working_tree_passed; see docs/release/verification.json training_gt_revision",
+    "readme_demo_revision": "local_working_tree_passed_existing_demo; see docs/release/verification.json readme_demo_revision"
+  },
+  "inventory": {
+    "source_files": 114,
+    "python_files": 52,
+    "test_cases": 129
+  },
+  "demo_assets": {
+    "manifest": "assets/demo/MANIFEST.json",
+    "readme": "assets/demo/README.md",
+    "size_bytes": 251028031,
+    "real_pipeline": {
+      "dataset": "one synthetic GSO render",
+      "objects": 4,
+      "backend": "sam3d",
+      "checkpoint_training_steps": 2,
+      "raw_processing_has_historical_gt": false,
+      "independent_stages": true
+    },
+    "sam3d_revision": "afdf6a31522d038c44c68a0bb57aa68827380797",
+    "integration": "included_scoped_runtime_observer",
+    "licenses": {
+      "data": "CC-BY-4.0",
+      "sam3d_demo_model": "LicenseRef-SAM",
+      "portable_fixture": "Apache-2.0"
+    }
+  }
+}

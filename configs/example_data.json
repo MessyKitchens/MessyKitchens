@@ -1,0 +1,16 @@
+[
+  {
+    "scene_id": "example/scene_000",
+    "dataset": "example",
+    "valid": true,
+    "num_parts": 2,
+    "image_path": "../data/example/scene_000/rgb.png",
+    "instance_mask_path": "../data/example/scene_000/instance_mask.png",
+    "mesh_path": "../data/example/scene_000/scene.glb",
+    "base_poses_path": "../data/example/scene_000/pose_inference.json",
+    "gt_poses_path": "../data/example/scene_000/poses.json",
+    "tokens_path": "../data/example/scene_000/tokens",
+    "sam3d_canonical_dir": "../data/example/scene_000/local_meshes",
+    "ours_results_path": "../outputs/example/scene_000"
+  }
+]

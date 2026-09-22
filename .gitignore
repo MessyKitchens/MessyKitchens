@@ -1,0 +1,38 @@
+# Python caches and packaging output
+__pycache__/
+*.py[cod]
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.venv/
+build/
+dist/
+
+# Local environments and editor state
+.env
+.env.*
+!.env.example
+external/
+.idea/
+.vscode/
+*.swp
+
+# Experiment output, logs, and downloaded data
+artifacts/
+checkpoints/
+data/
+logs/
+outputs/
+runs/
+wandb/
+*.ckpt
+*.npy
+*.npz
+*.pt
+*.pth
+*.safetensors
+
+# Small, individually checksummed demo assets (scripts/dev/check_release.py enforces limits)
+!assets/demo/**/*.npz
+!assets/demo/**/*.pt

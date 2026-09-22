@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "path": "real/PROVENANCE.json",
+      "sha256": "0e35ece32d2cbf23745c7e6c6e8f9d256df21c159b3310b516d0c159d3f21277",
+      "size_bytes": 4705,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/model.pt",
+      "sha256": "43065375c0ad4745141e35087d1d4e4eb9fb4eeb809c1c9bfe6bab32edd28e36",
+      "size_bytes": 85261005,
+      "license": "LicenseRef-SAM",
+      "source": "MessyKitchens two-step small MOD training; SAM3D afdf6a31522d038c44c68a0bb57aa68827380797; see LICENSE-SAM"
+    },
+    {
+      "path": "real/prepared/base_poses.json",
+      "sha256": "0acb3fb02a9a12fc141ab2799d9a5025029ba8e12007409d1f84edfe1d503b2e",
+      "size_bytes": 1603,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/prepared/local_meshes/obj_0_local.ply",
+      "sha256": "f754f87a949fa62a5c263fe91240cb66e9ae258213520eea9d7e543a08997318",
+      "size_bytes": 1728127,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/prepared/local_meshes/obj_1_local.ply",
+      "sha256": "6ab5422ca931c2a171123677d0914d2e5bbbd067b84eba65007cf71a08d53e03",
+      "size_bytes": 23799710,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/prepared/local_meshes/obj_2_local.ply",
+      "sha256": "fb1adaf4f2881afd923c5dd13f26dd360e306ec4f2ee4aaf05d3f71f7dd51338",
+      "size_bytes": 14336829,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/prepared/local_meshes/obj_3_local.ply",
+      "sha256": "3b3ac601d1e233a9af4b3688528b255ed1dca3faca7654d07aeab7a33fba1258",
+      "size_bytes": 6224449,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/prepared/prepared_data.json",
+      "sha256": "35bad4ed02721a2b02088df6dd232c000a74ab3b13148f6704dd397735116aea",
+      "size_bytes": 486,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/prepared/scene_obj_000.npz",
+      "sha256": "27b6fe79f6aa11259f7225ef74ba33a9182c55b79fedf203153e2162896ee549",
+      "size_bytes": 29879991,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/prepared/scene_obj_001.npz",
+      "sha256": "53cd06a5bf5e95b2378467078180beba4503f77c4a0ed0d77dafbb4a7070dda5",
+      "size_bytes": 29905730,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/prepared/scene_obj_002.npz",
+      "sha256": "47e6d792061061fbeabfc6fff16fad7e17e6b9f24afdecf517015695a294396d",
+      "size_bytes": 29895555,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/prepared/scene_obj_003.npz",
+      "sha256": "56f878e5e28e5bdcd29996ed8ebea4703a86806f7ac99d2c1e8aecf5a9d20e08",
+      "size_bytes": 29886407,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/prepared/target_poses.json",
+      "sha256": "a1599df83bae58a20b21e2e2e7ff1c2484d44feab3aa6618f5e58a777217db93",
+      "size_bytes": 2072,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/raw/image.png",
+      "sha256": "98e43bd8027f071791ad8bb267984f657b825fda21ac76cc47d20ff550753db0",
+      "size_bytes": 62323,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/raw/input.json",
+      "sha256": "5515df0f008b7169738f3fc038f663e0c2adfad5d8e23c9b67bc3a960617c0fe",
+      "size_bytes": 300,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "real/raw/instance_mask.png",
+      "sha256": "253f533f2230d9751b77888982510888a5e6255beb1661c6fad21f750239bbfe",
+      "size_bytes": 1616,
+      "license": "CC-BY-4.0",
+      "source": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/ ; MessyKitchens author-generated data; see real/PROVENANCE.json"
+    },
+    {
+      "path": "portable/model.pt",
+      "sha256": "b9daac12adf6fb1d4ab682e5af798067c35d00df228aa8f57fe180ade28f0cc9",
+      "size_bytes": 20976,
+      "license": "Apache-2.0",
+      "source": "MessyKitchens authors; deterministic synthetic CPU interface fixture, seed 17"
+    },
+    {
+      "path": "portable/prepared/demo_data_summary.json",
+      "sha256": "ac1a9a3593feba45926b6fc1fbba1eda5c233b80eee44947cf0378dc144e1cef",
+      "size_bytes": 1038,
+      "license": "Apache-2.0",
+      "source": "MessyKitchens authors; deterministic synthetic CPU interface fixture, seed 17"
+    },
+    {
+      "path": "portable/prepared/local_meshes/obj_0_local.ply",
+      "sha256": "37276b727c0b6007d780be3c847cdbbfb052c8ef1014500e1a1aabb23a14bff6",
+      "size_bytes": 464,
+      "license": "Apache-2.0",
+      "source": "MessyKitchens authors; deterministic synthetic CPU interface fixture, seed 17"
+    },
+    {
+      "path": "portable/prepared/local_meshes/obj_1_local.ply",
+      "sha256": "f51d1c71d9a91bbc236f4635258486cef0edb995099fef167f52f084044acd68",
+      "size_bytes": 464,
+      "license": "Apache-2.0",
+      "source": "MessyKitchens authors; deterministic synthetic CPU interface fixture, seed 17"
+    },
+    {
+      "path": "portable/prepared/local_meshes/obj_2_local.ply",
+      "sha256": "c126cf60164c930df63b5066dae30468ad474425e06d0b2ff95c31babc7f8887",
+      "size_bytes": 464,
+      "license": "Apache-2.0",
+      "source": "MessyKitchens authors; deterministic synthetic CPU interface fixture, seed 17"
+    },
+    {
+      "path": "portable/prepared/local_meshes/obj_4_local.ply",
+      "sha256": "b5faa2e3b1fb27455659a6d87b970e65a569c909dc13a6c0163dc14880ceff1c",
+      "size_bytes": 464,
+      "license": "Apache-2.0",
+      "source": "MessyKitchens authors; deterministic synthetic CPU interface fixture, seed 17"
+    },
+    {
+      "path": "portable/prepared/prepared_data.json",
+      "sha256": "05e64f64288342bcccefa1bbc8ffebaeec67cd30ae4594a56275450887b544b6",
+      "size_bytes": 317,
+      "license": "Apache-2.0",
+      "source": "MessyKitchens authors; deterministic synthetic CPU interface fixture, seed 17"
+    },
+    {
+      "path": "portable/prepared/scene_000.npz",
+      "sha256": "e571fc4626a53d09a4a34dd8ef958edc6d9fed9f7c49b85564191a8f5cb23e1e",
+      "size_bytes": 6174,
+      "license": "Apache-2.0",
+      "source": "MessyKitchens authors; deterministic synthetic CPU interface fixture, seed 17"
+    },
+    {
+      "path": "portable/prepared/scene_001.npz",
+      "sha256": "81aed37828b2e378a199ec472449270ce8b15e498aefaacfad83abf56c0b1cc8",
+      "size_bytes": 6762,
+      "license": "Apache-2.0",
+      "source": "MessyKitchens authors; deterministic synthetic CPU interface fixture, seed 17"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+include README.md LICENSE NOTICE CITATION.cff THIRD_PARTY_NOTICES.md
+include requirements.txt .gitignore
+recursive-include src *.py
+recursive-include scripts *.py *.sh
+recursive-include configs *.json *.yaml *.yml
+recursive-include assets/demo *
+recursive-include docs *
+recursive-include tests *.py
+recursive-include .github *.md *.yml *.yaml
+global-exclude __pycache__ *.py[cod] .DS_Store
+prune .git
+prune .venv
+prune .pytest_cache
+prune .mypy_cache
+prune .ruff_cache
+prune build
+prune dist
+prune outputs
+prune runs
+prune checkpoints
+prune wandb

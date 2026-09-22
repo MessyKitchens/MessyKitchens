@@ -1,0 +1,7 @@
+# Installs the package together with the dependencies needed by the released
+# train, inference, and aligned-geometry metric entry points. Install
+# .[reports] only when Excel aggregation output is needed.
+-e .[train,iou]
+
+# SAM3D and PyTorch3D are external research dependencies; follow README.md for
+# their environment-specific installation rather than pinning local checkouts.

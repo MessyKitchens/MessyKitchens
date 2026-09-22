@@ -1,0 +1,18 @@
+[
+  {
+    "scene_id": "gso/train_0000_az_055_el_073_fr_0000",
+    "dataset": "GSO_synthetic_demo",
+    "num_parts": 4,
+    "scene_npz_paths": [
+      "scene_obj_000.npz",
+      "scene_obj_001.npz",
+      "scene_obj_002.npz",
+      "scene_obj_003.npz"
+    ],
+    "base_poses_path": "base_poses.json",
+    "target_poses_path": "target_poses.json",
+    "sam3d_canonical_dir": "local_meshes",
+    "image_path": "../raw/image.png",
+    "instance_mask_path": "../raw/instance_mask.png"
+  }
+]

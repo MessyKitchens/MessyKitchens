@@ -1,0 +1,13 @@
+MessyKitchens: Contact-rich object-level 3D scene reconstruction
+Copyright 2026 MessyKitchens Authors
+
+This product includes software developed for the MessyKitchens project.
+
+The MessyKitchens dataset is distributed separately under CC BY-NC 4.0.
+The Apache-2.0 license in this repository applies to this repository's code,
+not to separately downloaded datasets, model weights, or third-party software.
+
+Bundled demo assets have their own scope: synthetic GSO render/cache data are
+CC BY 4.0 (assets/demo/LICENSE-DATA); the SAM3D-backed MOD demo checkpoint
+includes SAM-derived model components and is distributed under the SAM License
+(assets/demo/LICENSE-SAM). CPU-only generated fixtures use Apache-2.0.

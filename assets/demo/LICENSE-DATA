@@ -1,0 +1,30 @@
+Demo dataset license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+This license applies to the synthetic GSO-derived render, instance labels,
+registered target poses, cached numeric features, and canonical geometry in
+real/raw/, real/prepared/, and real/PROVENANCE.json. It explicitly excludes
+model checkpoint files, including real/model.pt, and does not change the
+separate license of repository code or any model weights.
+
+Source attribution:
+Google Scanned Objects / Scanned Objects by Google Research.
+Google Research, 2022.
+https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/
+https://research.google/pubs/google-scanned-objects-a-high-quality-dataset-of-3d-scanned-household-items/
+
+Derived render, labels, registered targets and cached outputs:
+MessyKitchens authors, 2026.
+https://messykitchens.github.io/
+
+Changes: original RGB retained; instance labels encoded as lossless grayscale
+PNG; legacy cached mappings converted to numeric NPZ object shards without
+changing numeric values or dtypes; private pose metadata removed; canonical
+mesh visual attributes omitted while preserving all vertices and faces.
+See real/PROVENANCE.json for the recorded source hashes and object mapping.
+
+License deed: https://creativecommons.org/licenses/by/4.0/
+Full legal text: https://creativecommons.org/licenses/by/4.0/legalcode
+
+You may share and adapt these data, including commercially, under CC BY 4.0.
+Provide appropriate attribution, link to the license, and indicate changes.
+The data are provided without warranties; the complete license text controls.

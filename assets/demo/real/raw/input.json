@@ -1,0 +1,11 @@
+[
+  {
+    "id": "train_0000_az_055_el_073_fr_0000",
+    "scene_id": "gso/train_0000_az_055_el_073_fr_0000",
+    "image_id": "train_0000_az_055_el_073_fr_0000",
+    "dataset": "GSO_synthetic_demo",
+    "num_parts": 4,
+    "image_path": "image.png",
+    "instance_mask_path": "instance_mask.png"
+  }
+]

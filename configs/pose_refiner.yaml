@@ -1,0 +1,45 @@
+# SAM3D interface template. It intentionally retains the portable pose-only
+# objective and is not the recovered paper-working-tree training recipe. Use
+# pose_refiner_paper.yaml for the sanitized paper objective and hyperparameters.
+workflow:
+  backend: sam3d
+
+model:
+  feature_dim: 1024
+  input_dim: 1024
+  num_heads: 16
+  mlp_hidden_dim: 4096
+  dropout: 0.1
+  num_layers: 3
+  use_global_attn: true
+  use_layer_norm: true
+  use_shape_tokens: true
+
+train:
+  # Paths inside a YAML file are resolved relative to this file.
+  data_json: null
+  epochs: 200
+  seed: 42
+  precision: fp32
+  gradient_accumulation_steps: 8
+  max_grad_norm: 1.0
+  save_freq: 2000
+  loss_weights:
+    translation: 100.0
+    rotation: 0.1
+    scale: 100.0
+
+val:
+  data_json: null
+  max_val_scenes: null
+
+optimizer:
+  name: adamw
+  lr: 5.0e-4
+  betas: [0.9, 0.999]
+  weight_decay: 0.05
+  eps: 1.0e-8
+
+lr_scheduler:
+  name: cosine_warmup
+  num_warmup_steps: 500

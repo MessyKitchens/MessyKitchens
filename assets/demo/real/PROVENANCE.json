@@ -1,0 +1,136 @@
+{
+  "sample_id": "train_0000_az_055_el_073_fr_0000",
+  "dataset": "GSO synthetic training render",
+  "real_camera_capture": false,
+  "source_dataset": "https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/",
+  "source_dataset_license": "CC-BY-4.0",
+  "sam3d_source": "https://github.com/facebookresearch/sam-3d-objects",
+  "source_record_index": 0,
+  "source_manifest_sha256": "7aece37d273c1a65adfa5fe9fad3ea0f612ba709eac0bbd9299d5e8f01b01e2c",
+  "source_image_sha256": "98e43bd8027f071791ad8bb267984f657b825fda21ac76cc47d20ff550753db0",
+  "source_mask_npy_sha256": "441151f4701abdf091153429d59210ef3c817c2e49807e4ad929b336d030429a",
+  "source_target_json_sha256": "9f52a3c58f1c0d2965404667350ff5d78eea43be5210e2352d7897ae21b87b19",
+  "source_base_json_sha256": "3af10c98b121c58bd450225cfd1f0c8a8dcd0f5aa2b393ada94429902ad5da69",
+  "image_resolution": [
+    512,
+    512
+  ],
+  "objects": [
+    {
+      "mask_label": 1,
+      "object_id": 0,
+      "gt_pose_key": "obj_0",
+      "canonical_file": "prepared/local_meshes/obj_0_local.ply",
+      "cache_shard": "prepared/scene_obj_000.npz",
+      "source_token_sha256": "1864e9b2730dda6ccf564fbe5c2ebebd7a513b9b5fc3a6cc886a08daad9de448",
+      "source_image_condition_sha256": "0f17ca2cf854c3e85f59415d7dfe6353fd4f6a82c0d121c9020f0670b2cfc682",
+      "source_canonical_ply_sha256": "bed18a2552322385e2e425139de92b1f0a5f933dba35bd63a178778e1061a884",
+      "canonical_vertices": 45474,
+      "canonical_faces": 90940,
+      "pose_tokens": [
+        1,
+        1,
+        1024
+      ],
+      "shape_tokens": [
+        1,
+        4096,
+        1024
+      ],
+      "image_condition": [
+        1,
+        7528,
+        1024
+      ]
+    },
+    {
+      "mask_label": 2,
+      "object_id": 1,
+      "gt_pose_key": "obj_1",
+      "canonical_file": "prepared/local_meshes/obj_1_local.ply",
+      "cache_shard": "prepared/scene_obj_001.npz",
+      "source_token_sha256": "8c98a1be8850191f0fd603f0d1c095af74b98bb424aa5a4c66c20836917fa01b",
+      "source_image_condition_sha256": "5c87519568789695baa27e7aa351d5e8bdb71d8b62d1f1e51defd3906d7059a7",
+      "source_canonical_ply_sha256": "49a1129e1784f3aec0589c8ccaa55d41062b6c68e44ca8db2e88964abc41d2d4",
+      "canonical_vertices": 626420,
+      "canonical_faces": 1252496,
+      "pose_tokens": [
+        1,
+        1,
+        1024
+      ],
+      "shape_tokens": [
+        1,
+        4096,
+        1024
+      ],
+      "image_condition": [
+        1,
+        7528,
+        1024
+      ]
+    },
+    {
+      "mask_label": 3,
+      "object_id": 2,
+      "gt_pose_key": "obj_2",
+      "canonical_file": "prepared/local_meshes/obj_2_local.ply",
+      "cache_shard": "prepared/scene_obj_002.npz",
+      "source_token_sha256": "9a13d6b1a8569f8a984476360638fac0d80e70aba792c5fbb891524870364f98",
+      "source_image_condition_sha256": "63d360ec2a0b425ede1c3f6a07f7d3b869c315ace1c082e1bd99ab80990e4935",
+      "source_canonical_ply_sha256": "de7b68403d3ad94d1b8fa564d59bc87d22c87c217226329ab08330da5c7c5568",
+      "canonical_vertices": 377312,
+      "canonical_faces": 754528,
+      "pose_tokens": [
+        1,
+        1,
+        1024
+      ],
+      "shape_tokens": [
+        1,
+        4096,
+        1024
+      ],
+      "image_condition": [
+        1,
+        7528,
+        1024
+      ]
+    },
+    {
+      "mask_label": 4,
+      "object_id": 3,
+      "gt_pose_key": "obj_3",
+      "canonical_file": "prepared/local_meshes/obj_3_local.ply",
+      "cache_shard": "prepared/scene_obj_003.npz",
+      "source_token_sha256": "a4b186c49c4fc0807bd26edaf2ea9a6edff321d079d1eab1a118f00162c1fd1b",
+      "source_image_condition_sha256": "44881711fcff03d95680e517ec6e32c9ed8fd4110852e852b0c69acb8e286a2f",
+      "source_canonical_ply_sha256": "4f8bb40979e2aefd41e2f4bce40fd2ce1ad9b6fd7bd7329a797e10327bb531f3",
+      "canonical_vertices": 163842,
+      "canonical_faces": 327548,
+      "pose_tokens": [
+        1,
+        1,
+        1024
+      ],
+      "shape_tokens": [
+        1,
+        4096,
+        1024
+      ],
+      "image_condition": [
+        1,
+        7528,
+        1024
+      ]
+    }
+  ],
+  "transformations": [
+    "Copied original RGB bytes without resizing or recompression.",
+    "Converted the original integer instance labels to lossless uint8 PNG.",
+    "Unboxed trusted cached mappings once; saved every original numeric array and dtype in per-object compressed NPZs.",
+    "Retained original GT/base object pose values; removed private filesystem metadata.",
+    "Exported all canonical vertices and faces as binary PLY; omitted visual attributes without geometry sampling."
+  ],
+  "sam3d_software_and_weight_terms": "SAM License; see THIRD_PARTY_NOTICES.md"
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "scene_id": "demo/scene_000",
+    "dataset": "generated_demo",
+    "scene_npz_path": "scene_000.npz",
+    "sam3d_canonical_dir": "local_meshes"
+  },
+  {
+    "scene_id": "demo/scene_001",
+    "dataset": "generated_demo",
+    "scene_npz_path": "scene_001.npz",
+    "sam3d_canonical_dir": "local_meshes"
+  }
+]

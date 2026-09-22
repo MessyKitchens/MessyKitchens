@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-07",
+  "scope": "small_data_demo_not_paper_metrics",
+  "sam3d_revision": "afdf6a31522d038c44c68a0bb57aa68827380797",
+  "environment": {
+    "gpu": "NVIDIA A100-SXM4-40GB",
+    "python": "3.11.0",
+    "torch": "2.5.1+cu121",
+    "driver": "570.195.03"
+  },
+  "gpu_job_id": "212805",
+  "stage_measurements": [
+    {
+      "stage": "training",
+      "exit_code": 0,
+      "seconds": 47.62
+    },
+    {
+      "stage": "export",
+      "exit_code": 0,
+      "seconds": 2.11
+    },
+    {
+      "stage": "inference",
+      "exit_code": 0,
+      "seconds": 43.33
+    },
+    {
+      "stage": "processing",
+      "exit_code": 0,
+      "seconds": 82.03
+    }
+  ],
+  "training": {
+    "optimizer_steps": 2,
+    "backend": "sam3d",
+    "metrics": {
+      "epoch": 2,
+      "global_step": 2,
+      "train": {
+        "cd_loss": 0.0029654435347765684,
+        "rotation_loss": 0.9049148559570312,
+        "learning_rate": 0.0,
+        "translation_loss": 0.0005689779063686728,
+        "scale_loss": 0.0010945048416033387,
+        "grad_norm": 4.01335334777832,
+        "loss": 0.5533840656280518
+      }
+    }
+  },
+  "processing": {
+    "successful": 1,
+    "failed": 0,
+    "objects": 4,
+    "historical_gt_attached": false
+  },
+  "inference": {
+    "successful": 1,
+    "failed": 0,
+    "objects": 4,
+    "metrics_are_training_example_diagnostics": true,
+    "metrics": {
+      "loss": 0.9134398698806763,
+      "translation_loss": 0.0005364538519643247,
+      "rotation_loss": 0.9039156436920166,
+      "scale_loss": 0.008987801149487495
+    }
+  },
+  "sam3d_initialization_peak_allocated_gib": 12.761249542236328,
+  "full_demo_peak_vram": "not_measured_in_first_run",
+  "cpu_tests": {
+    "passed": 62,
+    "skipped": 1,
+    "skip_reason": "optional PyTorch3D parity test unavailable in CPU environment"
+  },
+  "distribution": {
+    "source_commit": "91891a29d60c9fac7ca81693cc54a7a39fe43167",
+    "sdist": "multi_object_decoder-0.2.0.tar.gz",
+    "wheel": "multi_object_decoder-0.2.0-py3-none-any.whl",
+    "sdist_bytes": 210081259,
+    "wheel_bytes": 79299,
+    "verified_demo_assets": 25,
+    "sdist_three_independent_cpu_demos": "passed_inference_then_training_then_processing",
+    "wheel_install_import": "passed",
+    "required_files": [
+      "demo_data/MANIFEST.json",
+      "demo_data/real/model.pt",
+      "demo_data/real/raw/image.png",
+      "demo_data/real/prepared/prepared_data.json",
+      "demo_data/LICENSE-SAM",
+      "patches/README.md",
+      "demo_data_process.sh",
+      "demo_train.sh",
+      "demo_inference.sh",
+      "scripts/demo.py",
+      "configs/demo_sam3d.yaml",
+      "docs/SAM3D.md"
+    ]
+  },
+  "weights": {
+    "repository": "facebook/sam-3d-objects",
+    "pipeline_yaml_sha256": "53c3d226b21df85c0bb3d16e6e4fa63abde0d6167525765eb929d02bfa9d358c",
+    "immutable_revision_verified": false
+  },
+  "environment_scope": "Fresh pinned SAM3D source; existing SAM3D environment and base weights reused",
+  "training_gt_revision": {
+    "date": "2026-09-15",
+    "scope": "local_working_tree_registration_interface_not_paper_exact",
+    "environment": {
+      "python": "3.12.3",
+      "torch": "2.5.1+cpu"
+    },
+    "cpu_tests": {
+      "passed": 125,
+      "skipped": 1
+    },
+    "native_gaps_test": "passed_synthetic_scene_and_object_registration",
+    "gaps_binary_sha256": "4b35ae0e0045998cd677eb8f899c3343e6bc25c7a51f36131ee169f8f5aa9d28",
+    "fake_sam3d_prepare_to_target_loader": "passed",
+    "real_sam3d_gpu_rerun": false,
+    "real_dataset_registration_quality_verified": false,
+    "source_payload_files": 113,
+    "python_files": 51,
+    "lint": "passed_changed_python_files",
+    "filesystem_release_gate": "passed",
+    "clean_git_or_distribution_build": false
+  },
+  "layout_revision": {
+    "date": "2026-09-07",
+    "candidate_tree": "2ff2eeda8f478f7cccd73f7b45d4c0ce5d718603",
+    "parent_commit": "60ab9d8247ba87eb69d49cd15c9c07b1a1008a3b",
+    "cpu_tests": {
+      "passed": 62,
+      "skipped": 1
+    },
+    "unchanged_demo_assets": 25,
+    "source_package": "build, extraction, all asset hashes and independent CPU infer/train/prepare passed",
+    "wheel": "build and Twine metadata passed",
+    "core_source_change": "error-message script path only; model and runtime logic unchanged",
+    "historical_gpu_receipt_unchanged": true,
+    "source_payload_files": 109,
+    "python_files": 48,
+    "shell_help_checks": 7,
+    "sam3d_dry_runs": 3,
+    "shell_syntax": "passed",
+    "lint": "passed",
+    "local_markdown_links": "passed",
+    "gpu_rerun": false
+  },
+  "readme_demo_revision": {
+    "date": "2026-09-21",
+    "scope": "local_working_tree_existing_bundled_demo_not_paper_exact",
+    "cpu_environment": {
+      "python": "3.12.3",
+      "torch": "2.5.1+cpu"
+    },
+    "cpu_tests": {
+      "passed": 128,
+      "skipped": 1,
+      "skip_reason": "optional PyTorch3D parity unavailable in CPU environment",
+      "native_gaps_registration": "passed"
+    },
+    "cpu_workflows": {
+      "prepare_fixture": "passed",
+      "train_steps": 2,
+      "resumed_total_steps": 4,
+      "inference_scenes": 2,
+      "geometry_identity": {
+        "iou": 1.0,
+        "chamfer_distance": 0.0,
+        "f_score": 1.0
+      }
+    },
+    "gpu": "NVIDIA A100-SXM4-40GB",
+    "sam3d_revision": "afdf6a31522d038c44c68a0bb57aa68827380797",
+    "pipeline_yaml_sha256": "53c3d226b21df85c0bb3d16e6e4fa63abde0d6167525765eb929d02bfa9d358c",
+    "gpu_stages": [
+      {
+        "stage": "source_check",
+        "exit_code": 0,
+        "seconds": 0.17
+      },
+      {
+        "stage": "prepare",
+        "exit_code": 0,
+        "seconds": 104.95
+      },
+      {
+        "stage": "train_relative_data_json",
+        "exit_code": 0,
+        "seconds": 58.31
+      },
+      {
+        "stage": "infer",
+        "exit_code": 0,
+        "seconds": 48.37
+      },
+      {
+        "stage": "infer_fresh_prepare",
+        "exit_code": 0,
+        "seconds": 45.87
+      },
+      {
+        "stage": "metrics",
+        "exit_code": 0,
+        "seconds": 5.47
+      }
+    ],
+    "fresh_preparation": {
+      "successful": 1,
+      "failed": 0,
+      "objects": 4,
+      "seed": 42,
+      "generated_training_gt": false
+    },
+    "training": {
+      "optimizer_steps": 2,
+      "data": "bundled historical cache and matching registered targets",
+      "uses_new_data_json_argument": true
+    },
+    "inference": {
+      "bundled_checkpoint": "passed_4_objects",
+      "fresh_cache_with_new_checkpoint": "passed_4_objects",
+      "failed_scenes": 0
+    },
+    "geometry_metrics": {
+      "iou": 0.2991898148148148,
+      "chamfer_distance": 0.05812115100356843,
+      "f_score": 0.9967498771005767
+    },
+    "geometry_metrics_scope": "same_canonical_meshes_at_historical_training_targets_not_raw_GT_or_held_out_scores",
+    "initial_training_interruption": "first compute node became unreachable; cancelled attempt, successfully retried on another node",
+    "gaps_binary_sha256": "4b35ae0e0045998cd677eb8f899c3343e6bc25c7a51f36131ee169f8f5aa9d28",
+    "source_demo_assets_unchanged": 25,
+    "readme_shell_blocks_checked": 16,
+    "lint": "passed",
+    "clean_export_release_gate": {
+      "passed": true,
+      "files": 114,
+      "python_files": 52
+    },
+    "fresh_dependency_installation": false,
+    "requested_hard_raw_demo_copied": false,
+    "raw_to_registered_gt_to_training_verified": false,
+    "published": false
+  }
+}

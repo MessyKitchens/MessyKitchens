@@ -1,0 +1,69 @@
+# Sanitized paper-working-tree configuration recovered from the selected
+# checkpoint run. Developer paths and runtime-only logging fields were removed.
+# This config is fail-fast: it needs the paper SAM3D integration and PyTorch3D.
+workflow:
+  backend: sam3d
+
+model:
+  feature_dim: 1024
+  input_dim: 1024
+  num_heads: 16
+  mlp_hidden_dim: 4096
+  dropout: 0.1
+  num_layers: 3
+  use_global_attn: true
+  use_layer_norm: true
+  use_shape_tokens: true
+  # Retained as recovered provenance; the current model validates then removes
+  # this legacy no-op field because the cached tensor determines token count.
+  shape_token_len: 256
+
+train:
+  # Supply the sanitized exact split with train.data_json=... at invocation.
+  data_json: null
+  epochs: 200
+  seed: 42
+  precision: fp32
+  gradient_accumulation_steps: 2
+  allow_tf32: true
+  max_grad_norm: 1.0
+  save_freq: 2000
+  objective:
+    profile: paper
+    scale_loss: raw_mse
+    chamfer:
+      enabled: true
+      backend: pytorch3d
+      # Match the recovered loader preference: pre-sampled NPY, then PLY.
+      # PLY sampling stays in memory and never creates files in the data tree.
+      canonical_source: auto
+      canonical_point_count: 4096
+      num_samples: 1024
+      sampling_seed: 42
+      # CPU point tensors for at most this many recently used scenes.
+      cache_size: 16
+  loss_weights:
+    translation: 100.0
+    rotation: 0.1
+    scale: 100.0
+    cd: 100.0
+
+val:
+  # Validation uses raw pose loss without the training-only Chamfer term,
+  # matching the recovered paper-working-tree loop.
+  data_json: null
+  max_val_scenes: null
+
+optimizer:
+  name: adamw
+  lr: 1.0e-5
+  betas: [0.9, 0.999]
+  weight_decay: 0.05
+  eps: 1.0e-8
+
+lr_scheduler:
+  name: cosine_warmup
+  num_warmup_steps: 500
+  # Keep the recovered schedule horizon even for an early checkpoint or a
+  # diagnostic --max-train-steps run.
+  total_steps: 909000

@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multi-object-decoder"
+version = "0.2.0"
+description = "MessyKitchens Multi-Object Decoder training and inference workflow."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
+authors = [
+    {name = "Junaid Ahmed Ansari"},
+    {name = "Ran Ding"},
+    {name = "Fabio Pizzati"},
+    {name = "Ivan Laptev"},
+]
+requires-python = ">=3.10"
+keywords = ["3D reconstruction", "multi-object", "computer vision", "ECCV"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=1.24",
+    "omegaconf>=2.3",
+    "torch>=2.5,<2.6",
+]
+
+[project.scripts]
+mod-prepare = "multi_object_decoder.commands.prepare:main"
+mod-train = "multi_object_decoder.commands.train:main"
+mod-infer = "multi_object_decoder.commands.infer:main"
+mod-metrics = "multi_object_decoder.commands.metrics:main"
+
+[project.urls]
+Homepage = "https://messykitchens.github.io/"
+Paper = "https://arxiv.org/abs/2603.16868"
+Dataset = "https://huggingface.co/datasets/MessyKitchens/MessyKitchens"
+Repository = "https://github.com/MessyKitchens/MessyKitchens"
+Issues = "https://github.com/MessyKitchens/MessyKitchens/issues"
+
+[project.optional-dependencies]
+train = [
+    "Pillow>=9",
+    "trimesh>=4",
+]
+iou = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "trimesh>=4",
+]
+reports = [
+    "openpyxl>=3.1",
+]
+test = [
+    "pytest>=8",
+    "ruff>=0.9",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
