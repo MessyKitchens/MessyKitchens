@@ -4,6 +4,7 @@ __pycache__/
 *.egg-info/
 .mypy_cache/
 .ruff_cache/
+.pytest_cache/
 .tox/
 .venv/
 build/
@@ -17,6 +18,7 @@ external/
 .idea/
 .vscode/
 *.swp
+.DS_Store
 
 # Experiment output, logs, and downloaded data
 artifacts/

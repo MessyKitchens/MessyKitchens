@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Project page and videos
+    url: https://messykitchens.github.io/
+    about: Paper, qualitative results, and dataset links.
+  - name: Report a security vulnerability
+    url: https://github.com/MessyKitchens/MessyKitchens/security/advisories/new
+    about: Report security issues privately instead of opening a public issue.

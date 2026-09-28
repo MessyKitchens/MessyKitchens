@@ -1,4 +1,4 @@
-include README.md LICENSE NOTICE CITATION.cff THIRD_PARTY_NOTICES.md
+include README.md LICENSE NOTICE CITATION.cff THIRD_PARTY_NOTICES.md CHANGELOG.md
 include requirements.txt .gitignore
 recursive-include src *.py
 recursive-include scripts *.py *.sh

@@ -147,6 +147,8 @@ def main() -> int:
                     f"Model returned {tuple(predicted.shape)} for "
                     f"{sample.num_objects} objects"
                 )
+            if not bool(torch.isfinite(predicted).all()):
+                raise RuntimeError(f"Model returned non-finite poses for {sample.scene_id}")
             save_pose_json(
                 pose_path,
                 sample.object_names,

@@ -2,7 +2,8 @@ cff-version: 1.2.0
 message: "If you use MessyKitchens, please cite the paper below."
 title: "MessyKitchens: Contact-rich object-level 3D scene reconstruction"
 type: software
-version: 0.2.0
+version: 0.2.1
+date-released: 2026-09-28
 authors:
   - family-names: Ansari
     given-names: Junaid Ahmed

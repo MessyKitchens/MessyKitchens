@@ -1,4 +1,9 @@
-"""Clean release package for multi-object pose refinement."""
+"""MessyKitchens Multi-Object Decoder (MOD).
+
+The package contains the MOD pose refiner, checked scene loading for cached
+SAM3D artifacts, pose utilities, training objectives, the optional SAM3D
+backend, and the installed ``mod-*`` command-line entry points.
+"""
 
 from .models import (
     SAM3DPoseRefinementModel,
@@ -35,4 +40,4 @@ __all__ = [
     "save_pose_json",
 ]
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"

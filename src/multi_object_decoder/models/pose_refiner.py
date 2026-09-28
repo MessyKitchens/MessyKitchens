@@ -1,18 +1,21 @@
-"""
-SAM3D Pose Refiner Module (V4 Architecture)
+"""Multi-Object Decoder (MOD) pose refiner built on SAM3D pose and shape tokens.
 
-V4 Architecture: "先自省、再检索、后修正" (Introspect -> Retrieve -> Refine)
+Each refiner block runs three attention stages followed by an MLP:
 
-Core Logic:
-1. Intra-Object Self-Attention: Pose tokens (4) only - clarify internal pose parameter relations.
-2. Inter-Object Global Self-Attention: Reshape (B, 4) -> (1, B*4) - batch-wise comparison, relative spatial constraints.
-3. Global Cross-Attention: Q = Refined Pose Tokens, K/V = 4096 Shape Tokens - pose retrieves geometry evidence.
-4. Latent Mapping: Predict delta (ΔR, Δt) with Zero-Init on output layer.
+1. Intra-object self-attention over the four pose tokens of one object, which
+   relates the object's own pose parameters.
+2. Inter-object self-attention over the pose tokens of every object in the
+   scene (``(B, 4, F)`` reshaped to ``(1, B*4, F)``), which imposes relative
+   spatial constraints between objects.
+3. Cross-attention from the refined pose tokens (queries) to the object's full
+   shape tokens (keys and values), which retrieves geometric evidence.
+4. An MLP. Every residual branch is zero-initialised, so a fresh model starts
+   as an identity refiner.
 
-No ShapeAggregator - use full 4096 shape tokens directly in Cross-Attention.
-
-Input:  pose_tokens (B, 4, F), shape_tokens (B, 4096, F)
-Output: (refined_pose_tokens, delta_x_tp1_pose)
+The latent-mapping heads copied from the SAM3D backbone turn the refined pose
+tokens into residuals for SAM3D's pose latents. Inputs are ``pose_tokens`` with
+shape ``(B, 4, F)`` and optional ``shape_tokens`` with shape ``(B, S, F)``; the
+output is ``(refined_pose_tokens, pose_latent_residuals)``.
 """
 
 import torch
@@ -38,10 +41,11 @@ def _init_weights_improved(module: nn.Module) -> None:
 
 
 class V4RefinerBlock(nn.Module):
-    """
-    V4 Block: Intra-Object SA -> [Inter-Object SA] -> Cross-Attn (pose queries shape) -> MLP.
-    Pose tokens are "司令官" - they retrieve geometry evidence from 4096 points.
-    Inter-Object SA is optional: set use_global_attn=False for single-object / unrelated batch.
+    """One MOD refiner block: intra-object SA -> [inter-object SA] -> cross-attention -> MLP.
+
+    Pose tokens act as queries that retrieve geometric evidence from the shape
+    tokens. Inter-object self-attention is optional: set ``use_global_attn=False``
+    for single-object inputs or batches of unrelated objects.
     """
     def __init__(
         self,
@@ -54,7 +58,7 @@ class V4RefinerBlock(nn.Module):
         super().__init__()
         self.use_global_attn = use_global_attn
 
-        # 1. Intra-Object Self-Attention (4 pose tokens only)
+        # 1. Intra-object self-attention over the four pose tokens.
         self.norm_intra = nn.LayerNorm(feature_dim)
         self.intra_attn = nn.MultiheadAttention(
             embed_dim=feature_dim,
@@ -64,7 +68,7 @@ class V4RefinerBlock(nn.Module):
         )
         self.dropout_intra = nn.Dropout(dropout)
 
-        # 2. Inter-Object Global Self-Attention (Reshape B,4 -> 1,B*4)
+        # 2. Inter-object self-attention over all objects (B, 4 -> 1, B*4).
         self.norm_inter = nn.LayerNorm(feature_dim)
         self.inter_attn = nn.MultiheadAttention(
             embed_dim=feature_dim,
@@ -74,7 +78,7 @@ class V4RefinerBlock(nn.Module):
         )
         self.dropout_inter = nn.Dropout(dropout)
 
-        # 3. Global Cross-Attention (Q=pose, K,V=shape, 4096 points)
+        # 3. Cross-attention: pose tokens query the shape tokens.
         self.norm_cross = nn.LayerNorm(feature_dim)
         self.cross_attn = nn.MultiheadAttention(
             embed_dim=feature_dim,
@@ -96,7 +100,7 @@ class V4RefinerBlock(nn.Module):
         self.dropout_mlp = nn.Dropout(dropout)
 
         self.apply(_init_weights_improved)
-        # Zero-Init residuals (model starts with "no change" default)
+        # Zero-initialised residual branches: a fresh block is the identity.
         nn.init.zeros_(self.intra_attn.out_proj.weight)
         nn.init.zeros_(self.intra_attn.out_proj.bias)
         nn.init.zeros_(self.inter_attn.out_proj.weight)
@@ -114,13 +118,13 @@ class V4RefinerBlock(nn.Module):
         # pose_tokens: (B, 4, C)
         B, num_pose, C = pose_tokens.shape
 
-        # 1. Intra-Object Self-Attention (pose only)
+        # 1. Intra-object self-attention (pose tokens only).
         residual = pose_tokens
         x_norm = self.norm_intra(pose_tokens)
         x_sa, _ = self.intra_attn(x_norm, x_norm, x_norm)
         pose_tokens = residual + self.dropout_intra(x_sa)
 
-        # 2. Inter-Object Global Self-Attention (reshape B*4) - optional when batch is unrelated
+        # 2. Inter-object self-attention; optional when the batch is unrelated.
         if self.use_global_attn:
             residual = pose_tokens
             x_norm = self.norm_inter(pose_tokens)
@@ -128,16 +132,15 @@ class V4RefinerBlock(nn.Module):
             x_global, _ = self.inter_attn(x_flat, x_flat, x_flat)
             pose_tokens = residual + self.dropout_inter(x_global.reshape(B, num_pose, C))
 
-        # 3. Global Cross-Attention (Q=pose, K,V=shape)
+        # 3. Cross-attention from pose queries to shape keys/values.
         if shape_tokens is not None:
             residual = pose_tokens
             x_norm = self.norm_cross(pose_tokens)
-            # Q: (B, 4, C), K,V: (B, 4096, C) -> batched cross-attn per sample
+            # Q: (B, 4, C); K, V: (B, S, C); batched per object.
             x_cross, _ = self.cross_attn(x_norm, shape_tokens, shape_tokens)
             pose_tokens = residual + self.dropout_cross(x_cross)
 
         # 4. MLP
-        residual = pose_tokens
         pose_tokens = pose_tokens + self.dropout_mlp(self.mlp(self.norm_mlp(pose_tokens)))
 
         return pose_tokens
@@ -151,9 +154,9 @@ class SAM3DPoseRefinementModel(nn.Module):
         mlp_hidden_dim: int = 4096,
         dropout: float = 0.1,
         num_layers: int = 4,
-        use_global_attn: bool = True,  # V4 always uses Inter-Object SA
+        use_global_attn: bool = True,  # inter-object self-attention
         use_layer_norm: bool = True,
-        shape_token_len: int = 4096,  # V4: no aggregation, use full 4096; kept for API compat
+        shape_token_len: int = 4096,  # unused; kept for configuration compatibility
         input_dim: int = 1024,  # backbone token dim (pose/shape from SAM3D)
         reduced_dim: Optional[int] = None,  # capacity control: internal dim 1024->reduced_dim (e.g. 256)
     ):
@@ -163,7 +166,7 @@ class SAM3DPoseRefinementModel(nn.Module):
         # Internal feature dim: reduced when capacity control is on to limit overfitting
         self.feature_dim = reduced_dim if reduced_dim is not None else feature_dim
 
-        # Capacity control: project 1024 -> reduced_dim at input, project back at output for latent_mapping
+        # Capacity control: project input_dim -> reduced_dim at the input and back at the output.
         if reduced_dim is not None:
             self.input_proj_pose = nn.Linear(input_dim, reduced_dim)
             self.input_proj_shape = nn.Linear(input_dim, reduced_dim)
@@ -176,11 +179,12 @@ class SAM3DPoseRefinementModel(nn.Module):
             self.input_proj_shape = None
             self.output_proj = None
 
-        # Pose Positional Embedding: disambiguate 4 pose tokens (rotation/translation/scale/translation_scale)
-        # Self-Attention is permutation-invariant; without this, model cannot learn structured pose representation.
+        # Positional embedding that distinguishes the four pose tokens
+        # (rotation, translation, scale, translation_scale); attention is
+        # permutation-invariant without it.
         self.pose_pos_embed = nn.Parameter(torch.randn(1, 4, self.feature_dim) * 0.02)
 
-        # V4 Refiner Blocks (use self.feature_dim so capacity control uses reduced dim)
+        # Refiner blocks operate at self.feature_dim so capacity control applies.
         self.use_global_attn = use_global_attn
         self.blocks = nn.ModuleList([
             V4RefinerBlock(
@@ -199,7 +203,7 @@ class SAM3DPoseRefinementModel(nn.Module):
             self.final_norm = nn.Identity()
         _init_weights_improved(self.final_norm)
 
-        # Latent Mapping Heads (same as before, Zero-Init in load_latent_mapping_from_backbone)
+        # Latent-mapping heads are attached by load_latent_mapping_from_backbone.
         self.latent_mapping = nn.ModuleDict()
         self.input_latent_mappings = []
         self._adapter = nn.ModuleDict()
@@ -207,7 +211,7 @@ class SAM3DPoseRefinementModel(nn.Module):
         self.register_buffer("delta_alpha", torch.tensor(1.0))
 
     def load_latent_mapping_from_backbone(self, backbone: nn.Module) -> None:
-        """Same loading logic, preserving Near-Zero Init for output heads."""
+        """Copy the SAM3D latent heads and create near-zero-initialised adapters."""
         if not hasattr(backbone, "latent_mapping") or not backbone.latent_mapping:
             return
         self.latent_mapping = nn.ModuleDict(
@@ -249,10 +253,12 @@ class SAM3DPoseRefinementModel(nn.Module):
         pose_tokens: torch.Tensor,
         shape_tokens: Optional[torch.Tensor] = None,
     ) -> Tuple[torch.Tensor, torch.Tensor]:
-        """
+        """Refine pose tokens and return SAM3D latent residuals.
+
         Args:
-            pose_tokens: (B, 4, F)  F=input_dim (1024)
-            shape_tokens: (B, 4096, F) or None. V4 uses full 4096, no aggregation.
+            pose_tokens: ``(B, 4, F)`` with ``F = input_dim``.
+            shape_tokens: ``(B, S, F)`` or ``None``; all shape tokens are used
+                directly, without aggregation.
         """
         if self.input_proj_pose is not None:
             pose_tokens = self.input_proj_pose(pose_tokens)
@@ -262,14 +268,9 @@ class SAM3DPoseRefinementModel(nn.Module):
         B, num_pose_tokens, F = pose_tokens.shape
         x = pose_tokens + self.pose_pos_embed
 
-        # Pass through V4 blocks: Intra-Object SA -> Inter-Object SA -> Cross-Attn -> MLP
+        # Intra-object SA -> inter-object SA -> cross-attention -> MLP, per block.
         for block in self.blocks:
             x = block(x, shape_tokens)
-            if torch.isnan(x).any():
-                import logging
-                logging.warning("NaN detected in V4RefinerBlock, returning input")
-                out = self.output_proj(x) if self.output_proj is not None else x
-                return out, self.forward_pose_residual(out) if self._pose_latent_keys else {}
 
         refined_pose_tokens = self.final_norm(x)
         if self.output_proj is not None:
@@ -286,7 +287,7 @@ def create_sam3d_pose_refinement_model(
     num_layers: int = 4,
     use_global_attn: bool = True,
     use_layer_norm: bool = True,
-    shape_token_len: int = 4096,  # V4: ignored, kept for API compat
+    shape_token_len: int = 4096,  # unused; kept for configuration compatibility
     input_dim: int = 1024,
     reduced_dim: Optional[int] = None,  # capacity control: internal dim 1024->reduced_dim (e.g. 256)
 ) -> SAM3DPoseRefinementModel:
@@ -309,11 +310,11 @@ SAM3DPoseRefiner = SAM3DPoseRefinementModel
 create_sam3d_pose_refiner = create_sam3d_pose_refinement_model
 
 
-# --- Simple MLP Baseline (Ablation: no Transformer) ---
 class SimpleMLPRefiner(nn.Module):
-    """
-    Simple MLP Baseline: concat Pose (4*F) + Shape (MaxPool -> F), then MLP regress delta.
-    For ablation study: compare against V4 Transformer.
+    """MLP ablation baseline without attention.
+
+    Concatenates the pose tokens (``4*F``) with max-pooled shape tokens (``F``)
+    and regresses the token residual with an MLP.
     """
     def __init__(
         self,
@@ -411,23 +412,3 @@ def create_simple_mlp_refiner(
         mlp_hidden_dim=mlp_hidden_dim,
     )
 
-
-if __name__ == "__main__":
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = create_sam3d_pose_refinement_model(
-        feature_dim=1024, num_heads=16, num_layers=4
-    ).to(device)
-
-    B, F = 2, 1024
-    pose_tokens = torch.randn(B, 4, F).to(device)
-    shape_tokens = torch.randn(B, 4096, F).to(device)
-
-    print("Testing V4 Architecture (Introspect -> Retrieve -> Refine)...")
-    with torch.no_grad():
-        refined_tokens, refined_delta = model(pose_tokens, shape_tokens=shape_tokens)
-
-    print(f"Input Pose: {pose_tokens.shape}")
-    print(f"Input Shape: {shape_tokens.shape} (full 4096, no aggregation)")
-    print(f"Output Tokens: {refined_tokens.shape} (Should be B, 4, F)")
-    print(f"Output Delta keys: {list(refined_delta.keys())}")
-    print(f"Params: {sum(p.numel() for p in model.parameters()):,}")

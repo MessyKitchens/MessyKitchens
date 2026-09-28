@@ -164,6 +164,8 @@ def poses_to_json(
         raise ValueError(
             f"Expected poses with shape ({len(names)}, {POSE_SIZE}), got {tuple(pose_values.shape)}"
         )
+    if not bool(torch.isfinite(pose_values).all()):
+        raise ValueError("Poses contain NaN or infinity; refusing to write pose JSON")
     objects: dict[str, Any] = {}
     for name, pose in zip(names, pose_values):
         objects[name] = {
@@ -187,4 +189,6 @@ def save_pose_json(
     destination = Path(path)
     destination.parent.mkdir(parents=True, exist_ok=True)
     payload = poses_to_json(object_names, poses, metadata=metadata)
-    destination.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    destination.write_text(
+        json.dumps(payload, indent=2, allow_nan=False) + "\n", encoding="utf-8"
+    )

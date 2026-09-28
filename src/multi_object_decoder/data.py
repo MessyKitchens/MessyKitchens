@@ -880,11 +880,7 @@ def load_scene(
     elif artifacts.embedded_base_poses is not None:
         base_poses = artifacts.embedded_base_poses
     else:
-        fallback = (
-            artifact_path.parent / "pose_inference.json"
-            if artifact_path.is_dir()
-            else artifact_path.parent / "pose_inference.json"
-        )
+        fallback = artifact_path.parent / "pose_inference.json"
         if not fallback.is_file():
             raise _schema_error(
                 "record",

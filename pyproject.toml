@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "multi-object-decoder"
-version = "0.2.0"
+version = "0.2.1"
 description = "MessyKitchens Multi-Object Decoder training and inference workflow."
 readme = "README.md"
 license = "Apache-2.0"
@@ -42,7 +42,9 @@ mod-metrics = "multi_object_decoder.commands.metrics:main"
 Homepage = "https://messykitchens.github.io/"
 Paper = "https://arxiv.org/abs/2603.16868"
 Dataset = "https://huggingface.co/datasets/MessyKitchens/MessyKitchens"
+Documentation = "https://github.com/MessyKitchens/MessyKitchens/tree/main/docs"
 Repository = "https://github.com/MessyKitchens/MessyKitchens"
+Changelog = "https://github.com/MessyKitchens/MessyKitchens/blob/main/CHANGELOG.md"
 Issues = "https://github.com/MessyKitchens/MessyKitchens/issues"
 
 [project.optional-dependencies]
@@ -59,12 +61,17 @@ reports = [
     "openpyxl>=3.1",
 ]
 test = [
+    # hydra-core instantiates the fake SAM3D pipeline used by the preparation test.
+    "hydra-core>=1.3",
     "pytest>=8",
     "ruff>=0.9",
 ]
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 100

@@ -2,7 +2,7 @@
   "schema_version": 3,
   "release": {
     "name": "MessyKitchens code and independent small-data demos",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "prepared_date": "2026-09-07",
     "repository": "https://github.com/MessyKitchens/MessyKitchens",
     "status": "code_and_demo_release_not_paper_exact",
@@ -185,9 +185,9 @@
     "readme_demo_revision": "local_working_tree_passed_existing_demo; see docs/release/verification.json readme_demo_revision"
   },
   "inventory": {
-    "source_files": 114,
-    "python_files": 52,
-    "test_cases": 129
+    "source_files": 120,
+    "python_files": 53,
+    "test_cases": 131
   },
   "demo_assets": {
     "manifest": "assets/demo/MANIFEST.json",

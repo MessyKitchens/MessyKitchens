@@ -96,7 +96,11 @@ poses with a cache when moving it to another computer.
 ## Geometry metrics
 
 ```bash
-mod-metrics   --gt-mesh examples/aligned_gt.glb   --pred-mesh examples/aligned_prediction.glb   --output-json outputs/geometry.json --seed 0
+mod-metrics \
+  --gt-mesh examples/aligned_gt.glb \
+  --pred-mesh examples/aligned_prediction.glb \
+  --output-json outputs/geometry.json \
+  --seed 0
 ```
 
 Inputs must already share a coordinate frame. This local command does not

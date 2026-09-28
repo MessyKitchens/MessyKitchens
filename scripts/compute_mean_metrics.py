@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-"""
-Compute mean metrics (CD, IoU) from a config JSON, write results to Excel, and
-write a filtered config JSON containing only entries that have computed metrics.
+"""Legacy aggregator for ``ours_results_path`` metrics (CD and IoU).
+
+Reads a top-level JSON list, scans each record's ``ours_results_path`` for
+``metrics_*.json`` files, writes the aggregate and per-file rows to an Excel
+workbook, and writes a filtered copy of the manifest that keeps only records
+with computed metrics. Prefer ``scripts/compute_stats.py`` for new runs.
 
 Usage:
-  python scripts/compute_mean_metrics.py --config CONFIG_JSON
+  python scripts/compute_mean_metrics.py --config CONFIG_JSON \\
+    [--output-xlsx REPORT.xlsx] [--output-filtered-json FILTERED.json]
 
-Requires: openpyxl (pip install openpyxl)
+Requires the ``reports`` extra (openpyxl).
 """
 
 import argparse
@@ -204,7 +208,7 @@ def main():
         sys.exit(1)
 
     if args.output_xlsx is None:
-        output_xlsx = Path(__file__).resolve().parent / f"mean_metrics_{config_path.stem}.xlsx"
+        output_xlsx = config_path.parent / f"mean_metrics_{config_path.stem}.xlsx"
     else:
         output_xlsx = args.output_xlsx
 

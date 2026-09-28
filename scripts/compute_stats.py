@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
-"""
-Compute object-level and scene-level statistics from metrics.json files.
+"""Aggregate scene-level and object-level statistics from evaluator metrics files.
 
-Reads a config JSON (e.g. sam3d_config_messy_kitchen_26_jan_combined_valid.json) where each
-record has sam3d_results_path (or another key) pointing to a directory containing metrics.json.
-Aggregates scene-level and object-level CD/IoU across all entries and prints/writes statistics.
-If --out-excel is provided, the workbook includes per-sample rows and an optional
-combined per-sample sheet with SAM3D/ours/MIDI/PartCrafter metrics.
+Reads an evaluation manifest (a JSON list, or an object with an ``items``,
+``data``, or ``samples`` list) in which each record points to a results
+directory containing ``metrics*.json`` written by the paper evaluator. The
+script aggregates per-scene and per-object CD/IoU across all records and prints
+or writes the statistics. With ``--out-excel`` the workbook also contains
+per-sample rows and an optional combined per-sample sheet across the
+SAM3D/ours/MIDI/PartCrafter result keys.
 
 Example:
-  python scripts/compute_sam3d_metrics_stats.py \\
-    --config data/eval.json \\
+  python scripts/compute_stats.py \\
+    --config outputs/eval.json \\
     --results-key sam3d_results_path \\
-    --out-json /path/to/stats.json
+    --out-json outputs/metrics_stats.json
 """
 
 from __future__ import annotations
@@ -666,7 +667,7 @@ def write_stats_to_excel(
                     val = round(val, 6)
                 ws_combined.cell(row=r, column=c, value=val)
 
-    # Sheet 1 (default): per-sample CD/IoU — 每个 sample 的 IoU/CD 结果
+    # Sheet 1 (default): per-sample CD/IoU rows.
     ws1 = wb.active
     ws1.title = "Per_sample"
     sample_headers = [
@@ -684,7 +685,7 @@ def write_stats_to_excel(
                 val = round(val, 6)
             ws1.cell(row=r, column=c, value=val)
 
-    # Sheet 2: aggregate stats (大表汇总)
+    # Sheet 2: aggregate statistics.
     ws2 = wb.create_sheet("Stats", 1)
     headers = ["level", "variant", "metric", "n", "mean", "std", "median"]
     for c, h in enumerate(headers, 1):

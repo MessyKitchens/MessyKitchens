@@ -71,5 +71,3 @@ The exact paper's historical local checkout included additional changes and
 is a separate provenance question; this integration does not claim their parity.
 
 Full paper equivalence is tracked in [REPRODUCIBILITY.md](REPRODUCIBILITY.md).
-
-Full paper equivalence is tracked in [REPRODUCIBILITY.md](REPRODUCIBILITY.md).
